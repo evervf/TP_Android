@@ -2,7 +2,7 @@ package com.example.ever.myapplication.modelo;
 
 /**
  * Created by Ever on 13/10/2016.
- * Entidad "Cliente"
+ * **Entidad "Cliente"
  */
 
 public class Cliente {
