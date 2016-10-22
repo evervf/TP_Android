@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Pedidos</string>
+    <string name="title_activity_clientes">Clientes</string>
+    <string name="title_activity_single_row_item">single_row_item</string>
+</resources>
