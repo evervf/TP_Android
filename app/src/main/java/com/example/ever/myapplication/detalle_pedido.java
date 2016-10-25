@@ -42,7 +42,7 @@ public class detalle_pedido extends AppCompatActivity {
 
         venta = datos.obtenerVentasPorIdVenta(String.valueOf(codigoVenta));
         venta.moveToFirst();
-        client = datos.obtenerClientesPorId(String.valueOf(venta.getInt(4)));
+        client = datos.obtenerClientesPorId(String.valueOf(venta.getInt(3)));
         client.moveToFirst();
 
         cliente.setText(client.getString(1) + " " + client.getString(2));
