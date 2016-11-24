@@ -19,7 +19,6 @@ import org.w3c.dom.Text;
 
 public class detalle_pedido extends AppCompatActivity {
 
-    ListView listaDetalle;
     Cursor c, client, venta;
     OperacionesBaseDatos datos;
 
@@ -62,11 +61,6 @@ public class detalle_pedido extends AppCompatActivity {
                 Cursor prod = datos.obtenerProductosId(String.valueOf(c.getInt(3)));
                 prod.moveToFirst();
 
-                /*String linea =  "||Producto: " + prod.getString(1) + "\t||Precio: " + String.valueOf(prod.getInt(2)) + " Gs.||" + "\n||Cantidad: " + String.valueOf(c.getInt(4)) + "\t||Subtotal: " + String.valueOf(c.getInt(2) + " Gs.||");
-                array[i] = linea;
-                i++;*/
-
-
                 TableRow row = new TableRow(this);
                 TextView product = new TextView(this);
                 product.setText(prod.getString(1));
@@ -87,16 +81,6 @@ public class detalle_pedido extends AppCompatActivity {
 
             }while (c.moveToNext());
         }
-
-        /*final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, array);
-        listaDetalle = (ListView) findViewById(R.id.ListViewDetalles);
-        listaDetalle.setAdapter(adapter);
-        listaDetalle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });*/
 
     }
 }

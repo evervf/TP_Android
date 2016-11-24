@@ -36,13 +36,14 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
 
     Button botonRegistrar, agregar;
     TextView stock, codigoProd, clientePantalla,nroPedido, total, direccion, email, precioUnit;
+    TableLayout tableLayout;
 
-    int pedido, p, suma, posicionProducto, codigoClient, bandera, stockArray;
+    int pedido, p, suma, posicionProducto, codigoClient, bandera, stockAlert, stockArray;
     int cantidad = 1;
     String n;
 
     OperacionesBaseDatos datos;
-    Cursor c, cu, cli, cursorProd;
+    Cursor a, c, cu, cli;
     Spinner producto, cant;
     ArrayList<DetalleVenta> detalleList = new ArrayList<DetalleVenta>();
     ArrayList<Producto> productoList = new ArrayList<Producto>();
@@ -162,11 +163,12 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
 
                     String[] a = new String[stockArray];
                     if (stockArray == 1) {
-                        a[0] = "sin Stock";
+                        a[0] = "Sin Stock";
                     } else {
                         for (int x = 0; x < stockArray; x++) {
                             a[x] = String.valueOf(x);
                         }
+                    }
                         final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, a);
                         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         cant.setAdapter(adapter1);
@@ -174,7 +176,12 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                         cant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                cantidad = Integer.parseInt(adapter1.getItem(position));
+                                if(position > 0){
+                                    cantidad = Integer.parseInt(adapter1.getItem(position));
+                                    stockAlert = 0;
+                                }else if (adapter1.getItem(position) == "Sin Stock") {
+                                    stockAlert = 1;
+                                }
                                 ((TextView) view).setTextColor(Color.BLACK);
                             }
 
@@ -183,7 +190,7 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
 
                             }
                         });
-                    }
+
                 }
             }
 
@@ -228,7 +235,12 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                         datos.getDb().beginTransaction();
                         for(int x = 0; x < detalleList.size(); x++){
                             resultadoDetalleVenta= datos.insertarDetalleVenta(detalleList.get(x));
+                            a= datos.obtenerProductosId(String.valueOf(detalleList.get(x).id_producto));
+                            a.moveToFirst();
+                            int z = a.getInt(3);
+                            datos.actualizarCantidad(z-detalleList.get(x).cantidad, detalleList.get(x).id_producto);
                             if(resultadoDetalleVenta == "-1") break;
+
                         }
                         datos.getDb().setTransactionSuccessful();
 
@@ -239,28 +251,35 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                     if(resultadoVenta == "-1" || resultadoDetalleVenta == "-1"){
                         Toast.makeText(getApplicationContext(), "Error al Registrar el pedido", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(getApplicationContext(), "Pedido Registrado Exitosamente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Pedido Registrado Exitosamente", Toast.LENGTH_LONG).show();
                     }
                 }
+                producto.setSelection(0);
+                cant.setSelection(0);
+                tableLayout.removeViews(1, tableLayout.getChildCount() -1);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
 
             case R.id.buttonAgregar:
 
                 if(bandera == 1){
                     Toast.makeText(getApplicationContext(),"Debe seleccionar un Producto!!!", Toast.LENGTH_SHORT).show();;
-                }else if(cantidad == 0){
+                }else if(cantidad == 0 && stockAlert==0){
                     Toast.makeText(getApplicationContext(), "Debe seleccionar una Cantidad!!!", Toast.LENGTH_SHORT).show();
+                }else if (stockAlert == 1){
+                    Toast.makeText(getApplicationContext(), "Producto fuera de Stock!!!", Toast.LENGTH_SHORT).show();
                 }else{
                     d = new DetalleVenta(null , pedido, p * cantidad, productoList.get(posicionProducto).id_producto, cantidad);
                     detalleList.add(d);
-                    datos.actualizarCantidad(productoList.get(posicionProducto).stock_actual- cantidad, productoList.get(posicionProducto).id_producto);
                     productoList.get(posicionProducto).stock_actual-=cantidad;
                     suma=0;
                     for (int con = 0; con < detalleList.size(); con++){
                         suma+= detalleList.get(con).sub_total;
                     }
 
-                    final TableLayout tableLayout = (TableLayout) findViewById(R.id.table);
+                    tableLayout = (TableLayout) findViewById(R.id.table);
                     TableRow row = new TableRow(this);
                     TextView nomProducto = new TextView(this);
                     nomProducto.setText(n);
@@ -287,7 +306,6 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                             int posicion = tableLayout.indexOfChild(parent);
                             tableLayout.removeView(parent);
 
-                            datos.actualizarCantidad(detalleList.get(posicion-1).cantidad + productoList.get(detalleList.get(posicion-1).id_producto -1).stock_actual, detalleList.get(posicion-1).id_producto);
                             productoList.get(detalleList.get(posicion-1).id_producto -1).stock_actual+= detalleList.get(posicion-1).cantidad;
                             detalleList.remove(posicion -1);
                             suma = 0;
