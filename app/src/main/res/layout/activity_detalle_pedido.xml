@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/textView10"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         android:text="Cliente: "
@@ -39,32 +39,12 @@
         android:id="@+id/textViewCliente2" />
 
     <TextView
-        android:text="Fecha: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textViewCliente2"
-        android:layout_toRightOf="@+id/textView10"
-        android:layout_toEndOf="@+id/textView10"
-        android:id="@+id/textView16"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView16"
         android:layout_toRightOf="@+id/textView16"
         android:layout_toEndOf="@+id/textView16"
         android:id="@+id/textViewFecha" />
-
-    <TextView
-        android:text="Monto Total: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView18"
-        android:layout_below="@+id/textView13"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -77,10 +57,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView18"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/textViewTotal"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp">
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,5 +108,80 @@
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:text="--------------------------------------------------------------------------------------------------"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView18"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView24"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <TextView
+        android:text="Dirección: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView29"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <TextView
+        android:text="Teléfono: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView29"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView30"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <TextView
+        android:text="--------------------------------------------------------------------------------------------------"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView31"
+        android:layout_below="@+id/textView30"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Monto Total: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_below="@+id/textView31"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView29"
+        android:layout_toRightOf="@+id/textView30"
+        android:layout_toEndOf="@+id/textView30"
+        android:id="@+id/textViewDir" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView29"
+        android:layout_toRightOf="@+id/textView30"
+        android:layout_toEndOf="@+id/textView30"
+        android:id="@+id/textViewTel" />
+
+    <TextView
+        android:text="Fecha: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_above="@+id/textView29"
+        android:layout_alignRight="@+id/textView10"
+        android:layout_alignEnd="@+id/textView10" />
 
 </RelativeLayout>

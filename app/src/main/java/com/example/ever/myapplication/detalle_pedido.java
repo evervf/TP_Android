@@ -24,7 +24,7 @@ public class detalle_pedido extends AppCompatActivity {
     OperacionesBaseDatos datos;
 
     TableLayout tabla;
-    TextView cliente, fecha, total;
+    TextView cliente, fecha, total, direcc, telefono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,8 @@ public class detalle_pedido extends AppCompatActivity {
         cliente = (TextView) findViewById(R.id.textViewCliente2);
         fecha = (TextView) findViewById(R.id.textViewFecha);
         total = (TextView) findViewById(R.id.textViewTotal);
+        telefono = (TextView) findViewById(R.id.textViewTel);
+        direcc = (TextView) findViewById(R.id.textViewDir);
 
         datos = OperacionesBaseDatos.obtenerInstancia(getApplicationContext());
         Intent intent = getIntent();
@@ -46,6 +48,8 @@ public class detalle_pedido extends AppCompatActivity {
         client.moveToFirst();
 
         cliente.setText(client.getString(1) + " " + client.getString(2));
+        direcc.setText(client.getString(4));
+        telefono.setText(client.getString(5));
         fecha.setText(String.valueOf(venta.getString(1)));
         total.setText(String.valueOf(venta.getInt(2)) + " Gs.");
 

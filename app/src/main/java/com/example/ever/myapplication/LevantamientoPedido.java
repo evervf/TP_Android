@@ -34,18 +34,15 @@ import java.util.Locale;
 
 public class LevantamientoPedido extends AppCompatActivity implements View.OnClickListener{
 
-    Button botonRegistrar;
-    Button agregar;
-    TextView clientePantalla;
-    TextView nroPedido;
-    TextView total;
+    Button botonRegistrar, agregar;
+    TextView stock, codigoProd, clientePantalla,nroPedido, total, direccion, email, precioUnit;
 
-    int pedido, p, suma, posicionProducto, codigoClient;
+    int pedido, p, suma, posicionProducto, codigoClient, bandera, stockArray;
     int cantidad = 1;
     String n;
 
     OperacionesBaseDatos datos;
-    Cursor c, cu;
+    Cursor c, cu, cli, cursorProd;
     Spinner producto, cant;
     ArrayList<DetalleVenta> detalleList = new ArrayList<DetalleVenta>();
     ArrayList<Producto> productoList = new ArrayList<Producto>();
@@ -59,12 +56,18 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levantamiento_pedido);
 
-        String[] a = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         producto = (Spinner) findViewById(R.id.spinner);
         nroPedido = (TextView) findViewById(R.id.textViewNumeroPedido);
         clientePantalla = (TextView) findViewById(R.id.textViewCliente);
         cant = (Spinner) findViewById(R.id.spinner2);
         total = (TextView) findViewById(R.id.textView);
+        direccion = (TextView) findViewById(R.id.textViewDireccion);
+        email = (TextView) findViewById(R.id.textViewEmail);
+        precioUnit = (TextView) findViewById(R.id.textViewPrecio);
+        stock = (TextView) findViewById(R.id.textViewStock);
+        codigoProd = (TextView) findViewById(R.id.textViewCodigo);
+        suma= 0;
+        total.setText(String.valueOf(suma) + " Gs.");
 
 
 
@@ -88,13 +91,18 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
         Bundle bundle = intent.getExtras();
         if(bundle != null){
             codigoClient = intent.getIntExtra("codigo", 0);
+            cli = datos.obtenerClientesPorId(String.valueOf(codigoClient));
+            cli.moveToFirst();
+            direccion.setText(cli.getString(4));
+            email.setText(cli.getString(5));
             String cliente = intent.getStringExtra("cliente");
             clientePantalla.setText(cliente);
         }
 
         cu= datos.obtenerProductos();
-        String[] array = new String[cu.getCount()];
-        int i = 0;
+        String[] array = new String[cu.getCount() +1];
+        array[0] = "Seleccione un Producto...";
+        int i = 1;
         if(cu.moveToFirst()){
             do{
 
@@ -110,35 +118,73 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         producto.setAdapter(adapter);
         producto.setSelection(0);
-
-        final ArrayAdapter<String> adapter1 =  new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, a);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cant.setAdapter(adapter1);
-        cant.setSelection(0);
-
-        cant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cantidad = Integer.parseInt(adapter1.getItem(position));
-                ((TextView) view).setTextColor(Color.BLACK);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         producto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                p= productoList.get(position).precio_unitario;
-                n= productoList.get(position).nom_producto;
-                posicionProducto = position;
+                ((TextView) view).setTextColor(Color.BLACK);
+                if (position == 0) {
+                    bandera = 1;
+                    stockArray = 1;
+                    codigoProd.setText("****");
+                    stock.setText("****");
+                    precioUnit.setText("**** Gs.");
 
-               ((TextView) view).setTextColor(Color.BLACK);
+                    String[] a = new String[stockArray];
+                    a[0] = "0";
+                    final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, a);
+                    adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    cant.setAdapter(adapter1);
+                    cant.setSelection(0);
+                    cant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            cantidad = Integer.parseInt(adapter1.getItem(position));
+                            ((TextView) view).setTextColor(Color.BLACK);
+                        }
 
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                } else {
+                    bandera = 0;
+                    p = productoList.get(position - 1).precio_unitario;
+                    n = productoList.get(position - 1).nom_producto;
+                    posicionProducto = position - 1;
+                    stockArray = productoList.get(position - 1).stock_actual + 1;
+
+                    codigoProd.setText(String.valueOf(productoList.get(position - 1).id_producto));
+                    stock.setText(String.valueOf(productoList.get(position - 1).stock_actual));
+                    precioUnit.setText(String.valueOf(productoList.get(position - 1).precio_unitario) + " Gs.");
+
+                    String[] a = new String[stockArray];
+                    if (stockArray == 1) {
+                        a[0] = "sin Stock";
+                    } else {
+                        for (int x = 0; x < stockArray; x++) {
+                            a[x] = String.valueOf(x);
+                        }
+                        final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, a);
+                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        cant.setAdapter(adapter1);
+                        cant.setSelection(0);
+                        cant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                cantidad = Integer.parseInt(adapter1.getItem(position));
+                                ((TextView) view).setTextColor(Color.BLACK);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    }
+                }
             }
 
             @Override
@@ -160,79 +206,105 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.ButtonRegistrar:
-                venta = new Venta(null, null , suma, 1, codigoClient);
-                try {
-                    datos.getDb().beginTransaction();
-                    datos.insetarVenta(venta);
-                    datos.getDb().setTransactionSuccessful();
 
-                } finally {
-                    datos.getDb().endTransaction();
-                }
+                if(detalleList.isEmpty()){
 
-                try {
-                    datos.getDb().beginTransaction();
-                    for(int x = 0; x < detalleList.size(); x++){
-                        datos.insertarDetalleVenta(detalleList.get(x));
+                    Toast.makeText(getApplicationContext(), "Debe Agregar al menos un Producto!!!", Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    venta = new Venta(null, null , suma, 1, codigoClient);
+                    String resultadoVenta, resultadoDetalleVenta = new String();
+                    try {
+                        datos.getDb().beginTransaction();
+                        resultadoVenta= datos.insetarVenta(venta);
+                        datos.getDb().setTransactionSuccessful();
+
+                    } finally {
+                        datos.getDb().endTransaction();
                     }
-                    datos.getDb().setTransactionSuccessful();
 
-                } finally {
-                    datos.getDb().endTransaction();
+                    try {
+                        datos.getDb().beginTransaction();
+                        for(int x = 0; x < detalleList.size(); x++){
+                            resultadoDetalleVenta= datos.insertarDetalleVenta(detalleList.get(x));
+                            if(resultadoDetalleVenta == "-1") break;
+                        }
+                        datos.getDb().setTransactionSuccessful();
+
+                    } finally {
+                        datos.getDb().endTransaction();
+                    }
+
+                    if(resultadoVenta == "-1" || resultadoDetalleVenta == "-1"){
+                        Toast.makeText(getApplicationContext(), "Error al Registrar el pedido", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Pedido Registrado Exitosamente", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-                Toast.makeText(getApplicationContext(), "Pedido Registrado", Toast.LENGTH_SHORT).show();
-
                 break;
+
             case R.id.buttonAgregar:
 
+                if(bandera == 1){
+                    Toast.makeText(getApplicationContext(),"Debe seleccionar un Producto!!!", Toast.LENGTH_SHORT).show();;
+                }else if(cantidad == 0){
+                    Toast.makeText(getApplicationContext(), "Debe seleccionar una Cantidad!!!", Toast.LENGTH_SHORT).show();
+                }else{
+                    d = new DetalleVenta(null , pedido, p * cantidad, productoList.get(posicionProducto).id_producto, cantidad);
+                    detalleList.add(d);
+                    datos.actualizarCantidad(productoList.get(posicionProducto).stock_actual- cantidad, productoList.get(posicionProducto).id_producto);
+                    productoList.get(posicionProducto).stock_actual-=cantidad;
+                    suma=0;
+                    for (int con = 0; con < detalleList.size(); con++){
+                        suma+= detalleList.get(con).sub_total;
+                    }
 
-                d = new DetalleVenta(null , pedido, p * cantidad, productoList.get(posicionProducto).id_producto, cantidad);
-                detalleList.add(d);
-                suma=0;
-                for (int con = 0; con < detalleList.size(); con++){
-                    suma+= detalleList.get(con).sub_total;
+                    final TableLayout tableLayout = (TableLayout) findViewById(R.id.table);
+                    TableRow row = new TableRow(this);
+                    TextView nomProducto = new TextView(this);
+                    nomProducto.setText(n);
+                    TextView precio = new TextView(this);
+                    precio.setText(String.valueOf(p) + " Gs.");
+                    TextView canti = new TextView(this);
+                    canti.setText(String.valueOf(cantidad));
+                    TextView sub = new TextView(this);
+                    sub.setText(String.valueOf(p*cantidad) + " Gs.");
+                    row.addView(nomProducto);
+                    row.addView(precio);
+                    row.addView(canti);
+                    row.addView(sub);
+                    total.setText(String.valueOf(suma) + " Gs.");
+                    final Button button = new Button(this);
+                    button.setText("Borrar");
+                    button.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    row.addView(button);
+
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final TableRow parent = (TableRow) v.getParent();
+                            int posicion = tableLayout.indexOfChild(parent);
+                            tableLayout.removeView(parent);
+
+                            datos.actualizarCantidad(detalleList.get(posicion-1).cantidad + productoList.get(detalleList.get(posicion-1).id_producto -1).stock_actual, detalleList.get(posicion-1).id_producto);
+                            productoList.get(detalleList.get(posicion-1).id_producto -1).stock_actual+= detalleList.get(posicion-1).cantidad;
+                            detalleList.remove(posicion -1);
+                            suma = 0;
+                            for (int con = 0; con < detalleList.size(); con++){
+                                suma+= detalleList.get(con).sub_total;
+                            }
+                            total.setText(String.valueOf(suma));
+                            producto.setSelection(0);
+                            cant.setSelection(0);
+                        }
+                    });
+
+                    tableLayout.addView(row,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                    producto.setSelection(0);
+                    cant.setSelection(0);
                 }
 
-                final TableLayout tableLayout = (TableLayout) findViewById(R.id.table);
-                TableRow row = new TableRow(this);
-                TextView nomProducto = new TextView(this);
-                nomProducto.setText(n);
-                TextView precio = new TextView(this);
-                precio.setText(String.valueOf(p) + " Gs.");
-                TextView cant = new TextView(this);
-                cant.setText(String.valueOf(cantidad));
-                TextView sub = new TextView(this);
-                sub.setText(String.valueOf(p*cantidad) + " Gs.");
-                row.addView(nomProducto);
-                row.addView(precio);
-                row.addView(cant);
-                row.addView(sub);
-                total.setText(String.valueOf(suma) + " Gs.");
-                final Button button = new Button(this);
-                button.setText("Borrar");
-                button.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                row.addView(button);
-
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final TableRow parent = (TableRow) v.getParent();
-                        int posicion = tableLayout.indexOfChild(parent);
-                        tableLayout.removeView(parent);
-
-                        detalleList.remove(posicion -1);
-                        suma = 0;
-                        for (int con = 0; con < detalleList.size(); con++){
-                            suma+= detalleList.get(con).sub_total;
-                        }
-                        total.setText(String.valueOf(suma));
-
-
-                    }
-                });
-
-                tableLayout.addView(row,new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
                 break;
             default:
                 break;

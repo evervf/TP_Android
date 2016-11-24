@@ -96,9 +96,9 @@ public class BaseDatosPedidos extends SQLiteOpenHelper{
                 DetallesVenta.ID_PRODUCTO, Referencias.ID_PRODUCTO, DetallesVenta.CANTIDAD));
 
 
-        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Asuka', 'Langley', '1112567', 'EVA-02', 'asuka@email')");
-        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Rei', 'Ayanami', '452345', 'EVA-00', 'rei@email')");
-        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Shinji', 'Ikari', '563456', 'EVA-01', 'shinji@email')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Asuka', 'Langley', '1112567', 'EVA-02', '021-964981')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Rei', 'Ayanami', '452345', 'EVA-00', '021-957775')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Shinji', 'Ikari', '563456', 'EVA-01', '021-5555555')");
 
         db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Empanada', 1000, 100)");
         db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Gaseosa', 2000, 100)");

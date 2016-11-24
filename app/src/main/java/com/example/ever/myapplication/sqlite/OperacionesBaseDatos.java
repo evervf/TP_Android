@@ -97,7 +97,7 @@ public class OperacionesBaseDatos {
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date date = new Date();
             String fecha = dateFormat.format(date);
 
@@ -369,6 +369,14 @@ public class OperacionesBaseDatos {
 
         int resultado = db.delete(Tablas.PRODUCTO, whereClause, whereArgs);
         return resultado > 0;
+    }
+
+    public void actualizarCantidad(int cantidad, int id){
+        SQLiteDatabase db = baseDatos.getWritableDatabase();
+
+        String sql = String.format("UPDATE %s set %s = %s WHERE %s = %s", Tablas.PRODUCTO, Productos.STOCK_ACTUAL, String.valueOf(cantidad),
+                                                                            Productos.ID_PRODUCTO, String.valueOf(id));
+        db.execSQL(sql);
     }
 
     // Operaciones cliente

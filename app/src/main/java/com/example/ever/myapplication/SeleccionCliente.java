@@ -53,7 +53,7 @@ public class SeleccionCliente extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), LevantamientoPedido.class);
-                Integer codigo = adapterCodigo.getItem(position);
+                Integer codigo = position +1;
                 intent.putExtra("codigo", codigo);
                 String cliente = adapter.getItem(position);
                 intent.putExtra("cliente", cliente);

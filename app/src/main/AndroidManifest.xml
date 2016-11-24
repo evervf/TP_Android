@@ -9,7 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +18,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SeleccionCliente">
+        <activity android:name=".SeleccionCliente" android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.SELECCIONCLIENTE" />
 
@@ -25,7 +27,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LevantamientoPedido">
+        <activity android:name=".LevantamientoPedido" android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.LEVANTAMIENTOPEDIDO" />
 
@@ -33,7 +36,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ListarPedidos">
+        <activity android:name=".ListarPedidos" android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.LISTARPEDIDO" />
 
@@ -41,7 +45,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".detalle_pedido">
+        <activity android:name=".detalle_pedido" android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.DETALLEPEDIDO" />
 
