@@ -253,13 +253,14 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                     }else{
                         Toast.makeText(getApplicationContext(), "Pedido Registrado Exitosamente", Toast.LENGTH_LONG).show();
                     }
+                    producto.setSelection(0);
+                    cant.setSelection(0);
+                    tableLayout.removeViews(1, tableLayout.getChildCount() -1);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
-                producto.setSelection(0);
-                cant.setSelection(0);
-                tableLayout.removeViews(1, tableLayout.getChildCount() -1);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+
                 break;
 
             case R.id.buttonAgregar:
