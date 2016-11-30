@@ -9,7 +9,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
+import android.icu.util.TimeZone;
 
 import com.example.ever.myapplication.modelo.DetalleVenta;
 import com.example.ever.myapplication.modelo.Venta;
@@ -96,11 +100,10 @@ public class OperacionesBaseDatos {
     public String insetarVenta(Venta venta) {
         SQLiteDatabase db = baseDatos.getWritableDatabase();
 
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = new Date();
-            String fecha = dateFormat.format(date);
-
+        Calendar c = new GregorianCalendar();
+        SimpleDateFormat formatearFecha = new SimpleDateFormat("dd-MM-yyyy");
+        formatearFecha.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+        String fecha = formatearFecha.format(c.getTime());
 
         ContentValues valores = new ContentValues();
         valores.put(Ventas.FECHA_VENTA, fecha);

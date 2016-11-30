@@ -3,6 +3,8 @@ package com.example.ever.myapplication;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.icu.text.DecimalFormat;
+import android.icu.text.NumberFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.text.StringPrepParseException;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +52,8 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
     DetalleVenta d;
     Producto prod;
     Venta venta;
+
+    NumberFormat formateo = NumberFormat.getIntegerInstance();
 
 
     @Override
@@ -159,14 +163,16 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
 
                     codigoProd.setText(String.valueOf(productoList.get(position - 1).id_producto));
                     stock.setText(String.valueOf(productoList.get(position - 1).stock_actual));
-                    precioUnit.setText(String.valueOf(productoList.get(position - 1).precio_unitario) + " Gs.");
+                    precioUnit.setText(String.valueOf(formateo.format(productoList.get(position - 1).precio_unitario)) + " Gs.");
 
                     String[] a = new String[stockArray];
                     if (stockArray == 1) {
                         a[0] = "Sin Stock";
+                        //stockAlert = 1;
                     } else {
                         for (int x = 0; x < stockArray; x++) {
                             a[x] = String.valueOf(x);
+                            //stockAlert = 0;
                         }
                     }
                         final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, a);
@@ -176,7 +182,7 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                         cant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                if(position > 0){
+                                if(adapter1.getItem(position) != "Sin Stock"){
                                     cantidad = Integer.parseInt(adapter1.getItem(position));
                                     stockAlert = 0;
                                 }else if (adapter1.getItem(position) == "Sin Stock") {
@@ -255,7 +261,7 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                     }
                     producto.setSelection(0);
                     cant.setSelection(0);
-                    tableLayout.removeViews(1, tableLayout.getChildCount() -1);
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -285,16 +291,16 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                     TextView nomProducto = new TextView(this);
                     nomProducto.setText(n);
                     TextView precio = new TextView(this);
-                    precio.setText(String.valueOf(p) + " Gs.");
+                    precio.setText(String.valueOf(formateo.format(p)) + " Gs.");
                     TextView canti = new TextView(this);
                     canti.setText(String.valueOf(cantidad));
                     TextView sub = new TextView(this);
-                    sub.setText(String.valueOf(p*cantidad) + " Gs.");
+                    sub.setText(String.valueOf(formateo.format(p*cantidad)) + " Gs.");
                     row.addView(nomProducto);
                     row.addView(precio);
                     row.addView(canti);
                     row.addView(sub);
-                    total.setText(String.valueOf(suma) + " Gs.");
+                    total.setText(String.valueOf(formateo.format(suma)) + " Gs.");
                     final Button button = new Button(this);
                     button.setText("Borrar");
                     button.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -313,7 +319,7 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                             for (int con = 0; con < detalleList.size(); con++){
                                 suma+= detalleList.get(con).sub_total;
                             }
-                            total.setText(String.valueOf(suma));
+                            total.setText(String.valueOf(formateo.format(suma)) + " Gs.");
                             producto.setSelection(0);
                             cant.setSelection(0);
                         }

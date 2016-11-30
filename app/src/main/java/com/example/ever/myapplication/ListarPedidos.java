@@ -38,7 +38,7 @@ public class ListarPedidos extends AppCompatActivity implements View.OnClickList
                 String linea;
                 if(c.getInt(0) < 10){
                     linea = "Pedido Nº: 000" + String.valueOf(c.getInt(0));
-                }else if(c.getInt(0) > 10 && c.getInt(0) < 100){
+                }else if(c.getInt(0) >= 10 && c.getInt(0) < 100){
                     linea = "Pedido Nº: 00" + String.valueOf(c.getInt(0));
                 }else{
                     linea = "Pedido Nº: 0" + String.valueOf(c.getInt(0));

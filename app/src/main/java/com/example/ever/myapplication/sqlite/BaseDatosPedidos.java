@@ -86,7 +86,7 @@ public class BaseDatosPedidos extends SQLiteOpenHelper{
                                     Tablas.TIPO_PRODUCTO, TiposProducto.ID_TIPO, TiposProducto.DESCRIPCION_TIPO));*/
 
         db.execSQL(String.format("CREATE TABLE %s ( %s INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                                    "%s DATETIME CURRENT_DATE, %s INTEGER, %s INTEGER NOT NULL %s, %s INTEGER NOT NULL %s)",
+                                    "%s DATETIME, %s INTEGER, %s INTEGER NOT NULL %s, %s INTEGER NOT NULL %s)",
                 Tablas.VENTA, Ventas.ID_VENTA, Ventas.FECHA_VENTA, Ventas.TOTAL_VENTA,
                 Ventas.ID_CLIENTE, Referencias.ID_CLIENTE, Ventas.CI_VENDEDOR, Referencias.CI_VENDEDOR));
 

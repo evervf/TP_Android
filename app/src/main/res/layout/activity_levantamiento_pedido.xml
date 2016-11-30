@@ -62,17 +62,6 @@
         android:minWidth="70dp" />
 
     <TextView
-        android:text="Total:  "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView12"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_above="@+id/ButtonRegistrar"
-        android:layout_toLeftOf="@+id/textView4"
-        android:layout_toStartOf="@+id/textView4"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
@@ -80,15 +69,6 @@
         android:layout_alignBottom="@+id/textView12"
         android:layout_toRightOf="@+id/textView12"
         android:layout_toEndOf="@+id/textView12" />
-
-    <Button
-        android:text="Registrar Pedido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ButtonRegistrar"
-        android:minHeight="25dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Dirección: "
@@ -166,24 +146,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="------------------------------------------DETALLE-----------------------------------------"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView27"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_below="@+id/buttonAgregar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/scrollView2"
         android:layout_below="@+id/textView27"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/textView12">
+        android:minHeight="340dp"
+        android:layout_above="@+id/textView34">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -314,6 +285,55 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView15"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <TextView
+        android:text="------------------------------------------DETALLE-----------------------------------------"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView27"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_below="@+id/buttonAgregar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Registrar Pedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ButtonRegistrar"
+        android:minHeight="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="--------------------------------------------------------------------------------------------------"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView33"
+        android:layout_above="@+id/ButtonRegistrar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <TextView
+        android:text="Total:  "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_above="@+id/textView33"
+        android:layout_alignLeft="@+id/textView28"
+        android:layout_alignStart="@+id/textView28" />
+
+    <TextView
+        android:text="--------------------------------------------------------------------------------------------------"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView12"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView34"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
 
