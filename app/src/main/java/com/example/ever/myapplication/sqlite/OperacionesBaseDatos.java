@@ -9,11 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.icu.text.DateFormat;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
-import android.icu.util.GregorianCalendar;
-import android.icu.util.TimeZone;
+
 
 import com.example.ever.myapplication.modelo.DetalleVenta;
 import com.example.ever.myapplication.modelo.Venta;
@@ -28,8 +24,12 @@ import com.example.ever.myapplication.sqlite.PedidosContract.Vendedores;
 import com.example.ever.myapplication.sqlite.PedidosContract.Ventas;
 import com.example.ever.myapplication.sqlite.PedidosContract.Productos;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 //import com.example.ever.myapplication.sqlite.PedidosContract.TiposProducto;
 
 public class OperacionesBaseDatos {

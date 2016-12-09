@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.icu.text.DecimalFormat;
-import android.icu.text.NumberFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.text.StringPrepParseException;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +26,7 @@ import com.example.ever.myapplication.sqlite.OperacionesBaseDatos;
 
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -119,7 +119,7 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
 
         }
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, array);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_dropdown_item_1line, array);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         producto.setAdapter(adapter);
         producto.setSelection(0);
@@ -137,7 +137,7 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
 
                     String[] a = new String[stockArray];
                     a[0] = "0";
-                    final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, a);
+                    final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, a);
                     adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     cant.setAdapter(adapter1);
                     cant.setSelection(0);
@@ -175,7 +175,7 @@ public class LevantamientoPedido extends AppCompatActivity implements View.OnCli
                             //stockAlert = 0;
                         }
                     }
-                        final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, a);
+                        final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, a);
                         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         cant.setAdapter(adapter1);
                         cant.setSelection(0);
