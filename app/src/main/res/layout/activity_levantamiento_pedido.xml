@@ -113,7 +113,7 @@
         android:id="@+id/buttonAgregar"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:minHeight="30dp"
-        android:minWidth="78dp"
+        android:minWidth="70dp"
         android:layout_alignBaseline="@+id/textView9"
         android:layout_alignBottom="@+id/textView9"
         android:layout_toLeftOf="@+id/textViewNumeroPedido"

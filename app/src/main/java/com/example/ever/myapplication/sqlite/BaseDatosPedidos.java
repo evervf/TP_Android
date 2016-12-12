@@ -99,10 +99,23 @@ public class BaseDatosPedidos extends SQLiteOpenHelper{
         db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Asuka', 'Langley', '1112567', 'EVA-02', '021-964981')");
         db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Rei', 'Ayanami', '452345', 'EVA-00', '021-957775')");
         db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Shinji', 'Ikari', '563456', 'EVA-01', '021-5555555')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Adriana', 'Nuñez', '234561', 'Acc. Sur', '021-961931')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Anthia', 'Arias', '6654123', 'San Antonio', '021-445533')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Analia', 'Gomez', '789631', 'Desconocido', '021-655322')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Ever', 'Velázquez', '3405930', 'Las palmas esq. Guaranies', '021-964981')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Ana', 'López', '7894633', 'Mariano R. Alonzo', '021-333511')");
+        db.execSQL("INSERT INTO " + Tablas.CLIENTE + " VALUES(null, 'Anto', 'Ferraro', '6665222', 'Sajonia', '021-999871')");
 
         db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Empanada', 1000, 100)");
         db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Gaseosa', 2000, 100)");
         db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Bollo', 500, 100)");
+        db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Manzana', 1000, 100)");
+        db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Cheetos', 5000, 100)");
+        db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Powerade', 5000, 100)");
+        db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Caramelo', 100, 100)");
+        db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Halls', 2000, 100)");
+        db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Leche', 4000, 100)");
+        db.execSQL("INSERT INTO " + Tablas.PRODUCTO + " VALUES(null, 'Chocolate', 500, 100)");
 
         db.execSQL("INSERT INTO " + Tablas.VENDEDOR + " VALUES(null, 'Vendedor', 'Vendedor')");
 
